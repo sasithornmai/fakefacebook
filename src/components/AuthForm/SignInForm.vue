@@ -48,20 +48,14 @@
     </div>
     <v-divider style="margin: 20px 16px"></v-divider>
     <div class="text-center">
-      <v-btn
-        color="#36a420"
-        style="font-size: large; color: white"
-        size="large"
-        elevation="0"
-      >
-        สร้างบัญชีใหม่
-      </v-btn>
+      <SignUpForm/>
     </div>
   </v-card>
 </template>
 
 <script>
 import firebase from "@/config/firebase.js";
+import SignUpForm from "@/components/AuthForm/SignUpForm.vue";
 export default {
   name: "SignInForm",
   data() {
@@ -94,6 +88,9 @@ export default {
       }
     },
   },
+  components: {
+    SignUpForm
+  }
 };
 </script>
 
