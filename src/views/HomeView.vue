@@ -1,6 +1,9 @@
 <template>
   <div>
-    <MainPage v-if="$store.state.user" />
+    <div v-if="$store.state.user">
+      <NavBar />
+      <MainPage />
+    </div>
     <AuthPage v-else />
   </div>
 </template>
@@ -11,6 +14,7 @@ import { defineComponent } from "vue";
 // Components
 import MainPage from "../components/MainPage.vue";
 import AuthPage from "../components/AuthPage.vue";
+import NavBar from "@/components/Layout/NavBar.vue";
 
 export default defineComponent({
   name: "HomeView",
@@ -18,6 +22,7 @@ export default defineComponent({
   components: {
     MainPage,
     AuthPage,
+    NavBar,
   },
 });
 </script>

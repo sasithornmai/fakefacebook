@@ -8,13 +8,17 @@
         style="background: none"
       >
         <v-row>
-          <v-col cols="6">
+          <v-col
+            cols="12"
+            md="6"
+            :class="{ 'text-center': $vuetify.display.smAndDown }"
+          >
             <h1 style="font-size: 50px; color: #166fe5">Facebook</h1>
             <span style="font-size: 30px">
               Facebook ช่วยคุณเชื่อมต่อและแชร์กับผู้คนมากมายรอบตัวคุณ
             </span>
           </v-col>
-          <v-col cols="6">
+          <v-col cols="12" md="6">
             <SignInForm />
             <div class="mt-7 text-center">
               <b>สร้างเพจ</b> สำหรับคนดัง แบรนด์ หรือธุรกิจ

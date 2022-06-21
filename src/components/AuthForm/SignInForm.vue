@@ -42,8 +42,8 @@
       เข้าสู่ระบบ
     </v-btn>
     <div style="width: 100%; margin-top: 16px; text-align: center">
-      <a class="forgotbtn" href="/forgot" style="color: #166fe5">
-        ลืมรหัสผ่านใช่หรือไม่
+      <a class="forgotbtn" href="/" style="color: #166fe5">
+        ลืมรหัสผ่านก็ไปสร้างใหม่ไป
       </a>
     </div>
     <v-divider style="margin: 20px 16px"></v-divider>
