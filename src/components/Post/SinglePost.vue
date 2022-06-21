@@ -13,9 +13,21 @@
         </div>
       </div>
       <v-spacer></v-spacer>
-      <v-btn color="" elevation="0" icon size="small">
-        <v-icon>mdi-dots-horizontal</v-icon>
-      </v-btn>
+      <v-menu v-if="this.post.user.uid === this.$store.state.user.uid" location="start">
+        <template v-slot:activator="{ props }">
+          <v-btn color="" elevation="0" icon size="small" v-bind="props">
+            <v-icon>mdi-dots-horizontal</v-icon>
+          </v-btn>
+        </template>
+
+        <v-list>
+          <v-list-item width="200" @click="delPost">
+            <v-list-item-title>
+              <v-icon class="mr-2">mdi-trash-can</v-icon>ลบโพสต์
+            </v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
     </div>
     <div v-if="post.detail" class="px-4" style="word-break: break-word">
       {{ post.detail }}
@@ -74,11 +86,19 @@
 </template>
 
 <script>
+import firebase from "@/config/firebase";
 export default {
   props: {
     post: {
       type: Object,
       reqired: true,
+    },
+  },
+  methods: {
+    delPost() {
+      if (this.post.user.uid === this.$store.state.user.uid) {
+        firebase.firestore.collection("posts").doc(this.post.id).delete();
+      }
     },
   },
 };
