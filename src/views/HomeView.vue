@@ -1,18 +1,23 @@
 <template>
-  <HelloWorld />
+  <div>
+    <MainPage v-if="$store.state.user" />
+    <AuthPage v-else />
+  </div>
 </template>
 
 <script>
-import { defineComponent } from 'vue';
+import { defineComponent } from "vue";
 
 // Components
-import HelloWorld from '../components/HelloWorld.vue';
+import MainPage from "../components/MainPage.vue";
+import AuthPage from "../components/AuthPage.vue";
 
 export default defineComponent({
-  name: 'HomeView',
+  name: "HomeView",
 
   components: {
-    HelloWorld,
+    MainPage,
+    AuthPage,
   },
 });
 </script>
