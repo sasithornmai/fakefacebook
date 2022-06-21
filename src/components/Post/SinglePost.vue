@@ -13,7 +13,10 @@
         </div>
       </div>
       <v-spacer></v-spacer>
-      <v-menu v-if="this.post.user.uid === this.$store.state.user.uid" location="start">
+      <v-menu
+        v-if="this.post.user.uid === this.$store.state.user.uid"
+        location="start"
+      >
         <template v-slot:activator="{ props }">
           <v-btn color="" elevation="0" icon size="small" v-bind="props">
             <v-icon>mdi-dots-horizontal</v-icon>
@@ -44,7 +47,7 @@
     </v-img>
     <div class="d-flex justify-start align-center mx-3" style="height: 43px">
       <v-icon class="mr-1" size="x-small">mdi-thumb-up</v-icon>
-      <span style="font-size: 15px">1k</span>
+      <span style="font-size: 15px">{{ post.comments.length }}</span>
     </div>
     <v-divider class="mx-3"></v-divider>
     <v-row no-gutters="">
