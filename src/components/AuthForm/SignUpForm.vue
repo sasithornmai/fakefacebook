@@ -23,24 +23,18 @@
         <v-card-text>
           <v-container>
             <v-row>
-              <v-col
-                cols="12"
-              >
-                <v-text-field
-                  label="name*"
-                  required
-                ></v-text-field>
-              </v-col>
               <v-col cols="12">
                 <v-text-field
                   label="Email*"
                   required
+                  v-model="email"
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
                 <v-text-field
                   label="Password*"
                   type="password"
+                  v-model="password"
                   required
                 ></v-text-field>
               </v-col>
@@ -59,7 +53,7 @@
           <v-btn
             color="blue-darken-1 mr-5"
             text
-            @click="dialog = false"
+            @click="signup"
           >
             สมัคร
           </v-btn>
@@ -70,10 +64,29 @@
 </template>
 
 <script>
+import firebase from "@/config/firebase.js";
 export default {
     data: () => ({
       dialog: false,
+      users: [],
+      email: '',
+      password: '',
+      user: null,
     }),
+    methods: {
+      async signup() {
+        firebase.auth.createUserWithEmailAndPassword(this.email, this.password)
+        .then(cred => {
+          localStorage.setItem('user', cred.user)
+          this.userid = cred.user
+          this.dialog = false
+        })
+        .catch(e => {
+          console.log('error : ' + e)
+          this.dialog = false
+        })
+    },
+    }
   }
 </script>
 
