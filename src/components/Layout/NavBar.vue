@@ -1,16 +1,5 @@
 <template>
-  <v-app-bar color="" height="56">
-    <!-- <v-app-bar-title>
-      <v-btn icon href="/">
-        <v-img :src="logo" width="40" />
-      </v-btn>
-    </v-app-bar-title>
-    <v-text-field
-      name="search"
-      label="ค้นหาบนเฟคเฟส"
-      hide-details
-      variant="filled"
-    ></v-text-field> -->
+  <v-app-bar color="" height="56" elevation="0">
     <div class="d-flex justify-center align-center" style="width: 320px">
       <v-btn icon href="/">
         <v-img :src="logo" width="40" />
@@ -19,7 +8,7 @@
     </div>
     <v-spacer></v-spacer>
     <v-tabs v-model="tab" background-color="white" color="#1b74e4">
-      <v-tab value="" style="width: 130px">
+      <v-tab value="0" style="width: 130px">
         <v-icon size="x-large">mdi-home</v-icon>
       </v-tab>
       <v-tab value="1" style="width: 130px">
@@ -50,7 +39,7 @@
           <v-btn icon color="success">
             <v-avatar size="avatarSize">
               <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeIMKLBPr-PxlbWxWWaAerVx1V2QA1BDgUw9Foe1cwE87wPOup8JKPhkYEu4lKAGQH5gM&usqp=CAU"
+                :src="$store.state.defaultAvatar"
                 alt="alt"
                 width="40"
                 v-bind="props"
@@ -63,18 +52,24 @@
           <v-card class="pa-4">
             <div class="d-flex align-center">
               <v-avatar class="mr-3" size="avatarSize">
-                <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeIMKLBPr-PxlbWxWWaAerVx1V2QA1BDgUw9Foe1cwE87wPOup8JKPhkYEu4lKAGQH5gM&usqp=CAU"
-                  alt="alt"
-                  width="40"
-                  v-bind="props"
-                />
+                <img :src="$store.state.defaultAvatar" alt="alt" width="40" />
               </v-avatar>
               <b>{{ $store.state.user.email }}</b>
             </div>
             <v-divider class="my-4"></v-divider>
-            <div>ดูโปรไฟล์ทั้งหมด</div>
+            <div style="color: #0082fd; font-size: 14px">ดูโปรไฟล์ทั้งหมด</div>
           </v-card>
+          <div class="mt-3">
+            <v-btn
+              color=""
+              class="d-flex justify-start align-center px-2"
+              block
+              size="large"
+              @click="logout"
+            >
+              <v-icon class="mr-2">mdi-logout</v-icon>ออกจากระบบ
+            </v-btn>
+          </div>
         </v-card>
       </v-menu>
     </div>
@@ -86,7 +81,14 @@ import logo from "../../assets/FBIcon.svg";
 export default {
   data: () => ({
     logo,
+    tab: null,
   }),
+  methods: {
+    logout() {
+      this.$store.commit("setUser", null);
+      localStorage.removeItem("user");
+    },
+  },
 };
 </script>
 
