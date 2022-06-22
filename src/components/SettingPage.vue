@@ -2,96 +2,108 @@
   <v-form
     ref="form"
     v-model="valid"
-    @click="save"
   >
     <v-text-field
-      v-model="name"
+      label="ชื่อ"
+      v-model="data.name"
       :counter="10"
       :rules="nameRules"
-      label="Name"
+      :value="data.name"
       required
     ></v-text-field>
-
     <v-text-field
-      v-model="email"
-      :rules="emailRules"
-      label="E-mail"
-      :value="$store.state.user.email"
-      required
+      readonly
+      :value="data.email"
     ></v-text-field>
-
+      <v-text-field
+        v-model="data.phone"
+        filled
+        color="deep-purple"
+        label="Phone number"
+      ></v-text-field>
+      <v-textarea
+        v-model="data.bio"
+        auto-grow
+        filled
+        color="deep-purple"
+        label="Bio"
+        rows="1"
+      ></v-textarea>
     <v-select
-      v-model="select"
+      v-model="data.sex"
       :items="items"
       :rules="[v => !!v || 'Item is required']"
       label="เพศ"
       required
     ></v-select>
 
-    <v-checkbox
-      v-model="checkbox"
-      :rules="[v => !!v || 'You must agree to continue!']"
-      label="Do you agree?"
-      required
-    ></v-checkbox>
-
     <v-btn
-      :disabled="!valid"
       color="success"
       class="mr-4"
-      @click="validate"
+      @click="updateFromFirestore"
     >
-      Validate
+      Update
     </v-btn>
-
     <v-btn
-      color="error"
+      color="black"
       class="mr-4"
-      @click="reset"
     >
-      Reset Form
-    </v-btn>
-
-    <v-btn
-      color="warning"
-      @click="resetValidation"
-    >
-      Reset Validation
+      Back
     </v-btn>
   </v-form>
 </template>
 
 <script>
+import firebase from "@/config/firebase.js";
+
   export default {
     name: "SettingPage",
     data: () => ({
-      valid: true,
-      name: '',
-      email: '',
-      select: null,
+        data: {
+        valid: true,
+        name: '',
+        email: '',
+        uid: '',
+        sex: null,
+        phone: undefined,
+        bio: '',
+      },
       items: [
         'ชาย',
         'หญิง',
         'ไม่ระบุ',
       ],
-      checkbox: false,
     }),
-
     methods: {
-      validate () {
-        this.$refs.form.validate()
-      },
-      reset () {
-        this.$refs.form.reset()
-      },
-      resetValidation () {
-        this.$refs.form.resetValidation()
-      },
-      async save() {
-
+    async updateFromFirestore() {
+      try {
+        const req = await firebase.firestore.collection('users').doc(this.$store.state.user.uid).set(this.data)
+        console.log(req)
+        this.$store.commit("setUser", this.data)
+        localStorage.removeItem("user");
+        localStorage.setItem("user", JSON.stringify(this.data));
+        alert('updated')
+      } catch(e) {
+        alert(e)
       }
+    }
+    },
+    async beforeCreate() {
+      // this.fromfirestore = await firebase.firestore.collection('users').doc(this.$store.state.user.uid)
+      // console.log(this.$store.state.user.uid)
+      // console.log( await firebase.firestore.collection('users').doc(this.$store.state.user.uid).get())
+      const userid = await firebase.firestore.collection('users').doc(this.$store.state.user.uid).get()
+      console.log(userid.data())
+      this.data.uid = userid.data().uid
+      this.data.email = userid.data().email
+      this.data.name = userid.data().name
+      this.data.phone = userid.data().phone?userid.data().phone:""
+      this.data.bio = userid.data().bio?userid.data().bio:""
+      this.data.sex = userid.data().sex?userid.data().sex:""
     },
   }
+  // console.log(firebase.firestore.collection('users').doc())
+  // console.log(this.$store.state.user)
 </script>
 
 <style>

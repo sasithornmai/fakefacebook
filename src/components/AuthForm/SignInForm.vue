@@ -76,9 +76,11 @@ export default {
         );
         if (res) {
           //   alert("Success");
-          console.log(res.user);
-          localStorage.setItem("user", JSON.stringify(res.user));
-          this.$store.commit("setUser", res.user);
+          console.log(res.user.uid);
+          const user = await firebase.firestore.collection('users').doc(res.user.uid).get()
+          console.log(user.data());
+          localStorage.setItem("user", JSON.stringify(user.data()));
+          this.$store.commit("setUser", user.data());
           //   this.$router.push("/");
           this.loading = false;
         }

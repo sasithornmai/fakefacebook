@@ -22,7 +22,7 @@
         />
       </v-avatar>
       <b class="text-truncate" style="max-width: 100%; font-size: 14px">
-        {{ $store.state.user.email }}
+        {{ $store.state.user.name }}
       </b>
     </v-btn>
     <v-btn

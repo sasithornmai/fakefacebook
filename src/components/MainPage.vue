@@ -1,15 +1,19 @@
 <template>
   <!-- {{ $store.state.user }} -->
-  <v-row no-gutters>
-    <v-col cols="3" class="pa-2">
-      <SideBar />
-    </v-col>
-    <v-col cols="6" class="pa-2">
-      <CreatePost />
-      <AllPost />
-    </v-col>
-    <v-col cols="3"><v-card class="mt-2" width="100%"> w </v-card></v-col>
-  </v-row>
+  <div>
+    <div>
+      <v-row no-gutters>
+        <v-col cols="3" class="pa-2">
+          <SideBar />
+        </v-col>
+        <v-col cols="6" class="pa-2">
+            <CreatePost />
+            <AllPost />
+        </v-col>
+        <v-col cols="3"><v-card class="mt-2" width="100%"> w </v-card></v-col>
+      </v-row>
+    </div>
+  </div>
   <!-- <v-btn color="success" @click="logout">Logout</v-btn> -->
 </template>
 
@@ -22,7 +26,7 @@ export default {
   components: {
     SideBar,
     CreatePost,
-    AllPost
+    AllPost,
   },
   methods: {
     logout() {

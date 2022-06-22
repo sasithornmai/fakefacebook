@@ -16,13 +16,20 @@
           สร้างบัญชีใหม่
         </v-btn>
       </template>
-      <v-card>
+      <v-card width="500">
         <v-card-title>
           <span class="text-h5 ml-5 mt-5">สมัครสมาชิก</span>
         </v-card-title>
         <v-card-text>
           <v-container>
             <v-row>
+              <v-col cols="12">
+                <v-text-field
+                  label="Name*"
+                  required
+                  v-model="name"
+                ></v-text-field>
+              </v-col>
               <v-col cols="12">
                 <v-text-field
                   label="Email*"
@@ -68,10 +75,11 @@ import firebase from "@/config/firebase.js";
 export default {
     data: () => ({
       dialog: false,
-      users: [],
-      email: '',
-      password: '',
-      user: null,
+        users: [],
+        email: '',
+        password: '',
+        name: '',
+        user: null,
     }),
     methods: {
       async signup() {
@@ -79,7 +87,14 @@ export default {
         .then(cred => {
           localStorage.setItem('user', cred.user)
           this.userid = cred.user
+          console.log(this.userid.uid)
           this.dialog = false
+          const req = firebase.firestore.collection('users').doc(cred.user.uid).set({
+            uid: cred.user.uid,
+            email: cred.user.email,
+            name: this.name
+          })
+          console.log(req)
         })
         .catch(e => {
           console.log('error : ' + e)

@@ -58,6 +58,9 @@
             </div>
             <v-divider class="my-4"></v-divider>
             <div style="color: #0082fd; font-size: 14px">ดูโปรไฟล์ทั้งหมด</div>
+            <div style="color: #0082fd; font-size: 14px">
+             <router-link to="/setting">ตั้งค่า</router-link>
+            </div>
           </v-card>
           <div class="mt-3">
             <v-btn
@@ -85,6 +88,7 @@ export default {
   }),
   methods: {
     logout() {
+     this.$router.push("/")
       this.$store.commit("setUser", null);
       localStorage.removeItem("user");
     },
