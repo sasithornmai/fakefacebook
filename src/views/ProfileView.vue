@@ -59,7 +59,7 @@
           <ProfilePage/>
         </v-col>
         <v-col cols="7">
-          <CreatePost />
+          <CreatePost/>
           <div class="mt-4">
             <SinglePost class="mt-2" v-for="(post, i) in posts" :key="i" :post="post"/>
           </div>
@@ -107,10 +107,10 @@ export default {
           // console.log(few[i])
         }
       }
-      // console.log(this.posts)
-      // console.log(this.posts)
-      // console.log(this.posts[0].user.uid)
-      // console.log(this.$store.state.user.uid)
+      console.log(this.posts)
+      console.log(this.posts)
+      console.log(this.posts[0].user.uid)
+      console.log(this.$store.state.user.uid)
     },
   },
   mounted() {

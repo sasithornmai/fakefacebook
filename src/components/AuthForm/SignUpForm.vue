@@ -95,10 +95,12 @@ export default {
             name: this.name
           })
           console.log(req)
+          alert('บันทึกข้อมูลเรียบร้อย')
         })
         .catch(e => {
           console.log('error : ' + e)
           this.dialog = false
+          alert('error : ' + e)
         })
     },
     }

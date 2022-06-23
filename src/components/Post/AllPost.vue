@@ -13,7 +13,7 @@ export default {
     posts: [],
   }),
   firestore: {
-    posts: firebase.firestore.collection("posts").orderBy("createAt", "desc", "user"),
+    posts: firebase.firestore.collection("posts").orderBy("createAt", "desc"),
   },
 };
 </script>
