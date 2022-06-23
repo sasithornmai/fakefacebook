@@ -33,7 +33,7 @@
             </v-col>
           </v-row>
         </v-card-title>
-        <hr class="line mt-10" />
+        <hr class="line mt-10 mb-3" />
         <v-tabs color="primary">
           <v-tab color="primary">โพสต์</v-tab>
           <v-tab>เกี่ยวกับ</v-tab>
@@ -96,18 +96,18 @@ export default {
         .get();
       const few = fewtest.docs.map((doc) => doc.data());
       this.fewza = fewtest.docs;
-      console.log(fewtest.docs[0].id);
-      console.log(few)
-      console.log(this.$store.state.user.uid)
+      // console.log(fewtest.docs[0].id);
+      // console.log(few)
+      // console.log(this.$store.state.user.uid)
       // this.posts = few;
       for (let i = 0; i < few.length; i++) {
         if (few[i].user.uid == this.$store.state.user.uid) {
-          console.log(few[i].user.uid)
+          // console.log(few[i].user.uid)
           this.posts.push(few[i])
-          console.log(few[i])
+          // console.log(few[i])
         }
       }
-      console.log(this.posts)
+      // console.log(this.posts)
       // console.log(this.posts)
       // console.log(this.posts[0].user.uid)
       // console.log(this.$store.state.user.uid)

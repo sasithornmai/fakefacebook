@@ -78,7 +78,7 @@
       color="black"
       class="mr-4"
     >
-      <router-link to="/mainpage">Back</router-link>
+    <a @click="$router.go(-1)">back</a>
     </v-btn>
   </v-form>
 </template>

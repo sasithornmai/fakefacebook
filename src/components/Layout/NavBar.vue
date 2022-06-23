@@ -1,7 +1,7 @@
 <template>
   <v-app-bar color="" height="56" elevation="0">
     <div class="d-flex justify-center align-center" style="width: 320px">
-      <v-btn icon href="/">
+      <v-btn icon href="/mainpage">
         <v-img :src="logo" width="40" />
       </v-btn>
       <input type="text" placeholder="ค้นหาบน Facebook" class="searchTxt" />
