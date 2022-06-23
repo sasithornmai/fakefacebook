@@ -1,7 +1,6 @@
 <template>
   <!-- {{ $store.state.user }} -->
   <div>
-  <NavBar/>
   <v-row no-gutters>
     <v-col cols="3" class="pa-2">
       <SideBar />
@@ -18,20 +17,18 @@
 <script>
 import SideBar from "@/components/Layout/SideBar.vue";
 import SettingPage from "../components/SettingPage.vue";
-import NavBar from "@/components/Layout/NavBar.vue";
 export default {
   name: "MainPage",
   components: {
     SideBar,
     SettingPage,
-    NavBar,
   },
   methods: {
-    logout() {
-      this.$store.commit("setUser", null);
-      localStorage.removeItem("user");
-      this.$route.push("/")
-    },
+    // logout() {
+    //   this.$store.commit("setUser", null);
+    //   localStorage.removeItem("user");
+    //   this.$route.push("/")
+    // },
   },
 };
 </script>

@@ -39,7 +39,7 @@
       :loading="loading"
       @click="SignIn"
     >
-      เข้าสู่ระบบ
+      <router-link to="/mainpage">เข้าสู่ระบบ</router-link>
     </v-btn>
     <div style="width: 100%; margin-top: 16px; text-align: center">
       <a class="forgotbtn" href="/" style="color: #166fe5">

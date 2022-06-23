@@ -61,6 +61,12 @@
             <div style="color: #0082fd; font-size: 14px">
              <router-link to="/setting">ตั้งค่า</router-link>
             </div>
+            <div style="color: #0082fd; font-size: 14px">
+             <router-link to="/profile">โปรไฟล์</router-link>
+            </div>
+            <div style="color: #0082fd; font-size: 14px">
+             <router-link to="/mainpage">หน้าหลัก</router-link>
+            </div>
           </v-card>
           <div class="mt-3">
             <v-btn

@@ -48,7 +48,7 @@
       color="black"
       class="mr-4"
     >
-      Back
+      <router-link to="/mainpage">Back</router-link>
     </v-btn>
   </v-form>
 </template>

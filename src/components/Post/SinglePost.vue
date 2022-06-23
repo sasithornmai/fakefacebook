@@ -22,7 +22,6 @@
             <v-icon>mdi-dots-horizontal</v-icon>
           </v-btn>
         </template>
-
         <v-list>
           <v-list-item width="200" @click="delPost">
             <v-list-item-title>
@@ -85,6 +84,42 @@
         </v-btn>
       </v-col>
     </v-row>
+    <v-divider class="mx-3"></v-divider>
+    <div v-for="chat in post.comments" :key="chat.message">
+      <div class="d-flex justify-start align-center px-3 pt-2">
+      <v-avatar class="mr-2" size="avatarSize">
+        <img
+          :src="$store.state.defaultAvatar"
+          alt="alt"
+          width="40"
+        />
+      </v-avatar>
+        <div style="font-size: 14px; font-weight: bold">
+          {{ chat.sender }}
+        </div>
+      </div>
+      <div class="px-15">
+        <div style="font-size: 15px">
+          <li>{{ chat.comment }}</li>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-start align-center px-4 py-3">
+      <v-avatar class="mr-2" size="avatarSize">
+        <img
+          :src="$store.state.defaultAvatar"
+          alt="alt"
+          width="40"
+        />
+      </v-avatar>
+      <input
+        type="text"
+        placeholder="เขียนความคิดเห็น..."
+        class="searchTxt"
+        v-model="data.comment"
+      />
+      <v-btn @click="sendComment">comment</v-btn>
+    </div>
   </v-card>
 </template>
 
@@ -97,12 +132,35 @@ export default {
       reqired: true,
     },
   },
+  data() {
+    return {
+      data: {
+        comment:'',
+        sender:'',
+      },
+    }
+  },
+  firestore: {
+    // chats: firebase.firestore.collection('posts')
+  },
   methods: {
     delPost() {
       if (this.post.user.uid === this.$store.state.user.uid) {
         firebase.firestore.collection("posts").doc(this.post.id).delete();
       }
     },
+    sendComment() {
+        firebase.firestore.collection('posts').doc(this.post.id).update({
+        // comments:[{sender:this.$store.state.user.name, comment:this.data.comment}]
+        comments: firebase.firebase.firestore.FieldValue.arrayUnion({sender:this.$store.state.user.name, comment:this.data.comment})
+      })
+      .then(e => {
+        console.log(e)
+      })
+      .catch(e => {
+        console.log('error : ' + e)
+      })
+    }
   },
 };
 </script>

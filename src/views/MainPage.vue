@@ -19,8 +19,8 @@
 
 <script>
 import SideBar from "@/components/Layout/SideBar.vue";
-import CreatePost from "./Post/CreatePost.vue";
-import AllPost from "./Post/AllPost.vue";
+import CreatePost from "../components/Post/CreatePost.vue";
+import AllPost from "../components/Post/AllPost.vue";
 export default {
   name: "MainPage",
   components: {
