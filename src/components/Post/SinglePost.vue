@@ -100,7 +100,7 @@
       </div>
       <div class="px-15">
         <div style="font-size: 15px">
-          <li>{{ chat.comment }}</li>
+          {{ chat.comment }}
         </div>
       </div>
     </div>

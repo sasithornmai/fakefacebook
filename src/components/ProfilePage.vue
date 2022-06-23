@@ -29,9 +29,9 @@
         >
       </div>
     </v-card-text>
-    <v-card-text v-else class="text-center">
-      <p class="mb-5">{{ descript }}</p>
-      <v-btn
+    <v-card-text v-else class="">
+      <p>{{ bio }}</p>
+      <!-- <v-btn
         depressed
         block
         elevation="0"
@@ -39,58 +39,50 @@
         class="font-weight-bold"
         @click="showEDdescript = !showEDdescript"
         >แก้ไขคำอธิบายตัวเอง</v-btn
-      >
+      > -->
     </v-card-text>
     <!-- รายละเอียด -->
     <v-card-text>
       <v-row>
         <v-col cols="1">
-          <v-icon size="26" color="#B0BEC5"> mdi-briefcase-variant </v-icon>
+          <v-icon size="26" color="#B0BEC5"> mdi-school </v-icon>
         </v-col>
         <v-col cols="11" class="pl-5">
-          <p>ทำงานที่ เรียนอยู่</p>
+          กำลังศึกษาที่ {{ school }}
         </v-col>
       </v-row>
       <v-row>
         <v-col cols="1">
           <v-icon size="26" color="#B0BEC5"> mdi-school </v-icon>
         </v-col>
-        <v-col cols="11" class="pl-5">
-          กำลังศึกษาที่ สถาบันเทคโนโลยีเพื่อการฆาตกรรมยังไงให้แนบเนียน
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col cols="1">
-          <v-icon size="26" color="#B0BEC5"> mdi-school </v-icon>
-        </v-col>
-        <v-col cols="11" class="pl-5"> เคยศึกษาที่ โรงเรียนลอบสังหาร </v-col>
+        <v-col cols="11" class="pl-5"> เคยศึกษาที่ {{ school2 }} </v-col>
       </v-row>
       <v-row>
         <v-col cols="1">
           <v-icon size="26" color="#B0BEC5"> mdi-home </v-icon>
         </v-col>
-        <v-col cols="11" class="pl-5"> อาศัยอยู่ที่ ตลาดมืด </v-col>
+        <v-col cols="11" class="pl-5"> อาศัยอยู่ที่ {{ home }} </v-col>
       </v-row>
       <v-row>
         <v-col cols="1">
           <v-icon size="26" color="#B0BEC5"> mdi-heart </v-icon>
         </v-col>
-        <v-col cols="11" class="pl-5"> โสด </v-col>
+        <v-col cols="11" class="pl-5"> {{ status }} </v-col>
       </v-row>
       <v-row>
         <v-col cols="1">
-          <v-icon size="26" color="#B0BEC5"> mdi-clock </v-icon>
+          <v-icon size="26" color="#B0BEC5"> mdi-phone </v-icon>
         </v-col>
-        <v-col cols="11" class="pl-5"> เข้าร่วมเมื่อ มิถุนายม 2022 </v-col>
+        <v-col cols="11" class="pl-5"> {{ phone }} </v-col>
       </v-row>
       <v-row>
         <v-col cols="1">
-          <v-icon size="26" color="#B0BEC5"> mdi-rss </v-icon>
+          <v-icon size="26" color="#B0BEC5"> mdi-account </v-icon>
         </v-col>
-        <v-col cols="11" class="pl-5"> มีผู้ติดตาม 700 </v-col>
+        <v-col cols="11" class="pl-5"> เพศ {{ sex }} </v-col>
       </v-row>
     </v-card-text>
-    <v-card-text>
+    <!-- <v-card-text>
       <v-btn
         depressed
         block
@@ -100,11 +92,11 @@
         @click="edit"
         >แก้ไขรายละเอียด</v-btn
       >
-    </v-card-text>
+    </v-card-text> -->
     <!-- งานอดิเรก -->
-    <v-card-text>
+    <!-- <v-card-text>
       <v-btn outlined rounded color="#fff" draggable="2">ซ่อนตัว</v-btn>
-    </v-card-text>
+    </v-card-text> -->
     <v-card-text>
       <v-btn
         depressed
@@ -113,21 +105,10 @@
         color="#EEEEEE"
         class="font-weight-bold"
         @click="edit"
-        >แก้ไขงานอดิเรก</v-btn
+        ><router-link to="/setting">แก้ไขข้อมูล</router-link></v-btn
       >
     </v-card-text>
     <!-- เนื้อหาแนะนำ -->
-    <v-card-text>
-      <v-btn
-        depressed
-        block
-        elevation="0"
-        color="#EEEEEE"
-        class="font-weight-bold"
-        @click="edit"
-        >เพิ่มเนื้อหาที่แนะนำ</v-btn
-      >
-    </v-card-text>
     <!-- <v-card-text>
     </v-card-text> -->
     <!-- <v-card-actions>
@@ -136,9 +117,16 @@
 </template>
 
 <script>
+import firebase from "@/config/firebase.js";
 export default {
   data: () => ({
-    descript: "ฉัน คือสายลับ ที่ไม่ลับ ขององค์กร IT Camp",
+    bio:'',
+    school: '',
+    school2: '',
+    home: '',
+    status: '',
+    phone: '',
+    sex: '',
     showEDdescript: false,
     checkDisabled: false,
   }),
@@ -147,6 +135,20 @@ export default {
       this.showEDdescript = false;
     },
   },
+  async beforeCreate() {
+      // this.fromfirestore = await firebase.firestore.collection('users').doc(this.$store.state.user.uid)
+      // console.log(this.$store.state.user.uid)
+      // console.log( await firebase.firestore.collection('users').doc(this.$store.state.user.uid).get())
+      const userid = await firebase.firestore.collection('users').doc(this.$store.state.user.uid).get()
+      console.log(userid.data())
+      this.phone = userid.data().phone?userid.data().phone:"-"
+      this.bio = userid.data().bio?userid.data().bio:"-"
+      this.sex = userid.data().sex?userid.data().sex:"-"
+      this.school = userid.data().school?userid.data().school:"-"
+      this.school2 = userid.data().school2?userid.data().school2:"-"
+      this.home = userid.data().home?userid.data().home:"-"
+      this.status = userid.data().status?userid.data().status:"-"
+    },
 };
 </script>
 

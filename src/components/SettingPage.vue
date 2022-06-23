@@ -36,7 +36,37 @@
       label="เพศ"
       required
     ></v-select>
-
+          <v-textarea
+        v-model="data.school"
+        auto-grow
+        filled
+        color="deep-purple"
+        label="กำลังศึกษาที่"
+        rows="1"
+      ></v-textarea>
+          <v-textarea
+        v-model="data.school2"
+        auto-grow
+        filled
+        color="deep-purple"
+        label="เคยศึกษาที่"
+        rows="1"
+      ></v-textarea>
+          <v-textarea
+        v-model="data.home"
+        auto-grow
+        filled
+        color="deep-purple"
+        label="อาศัยอยู่ที่"
+        rows="1"
+      ></v-textarea>
+    <v-select
+      v-model="data.status"
+      :items="itemsheart"
+      :rules="[v => !!v || 'Item is required']"
+      label="สถานะ"
+      required
+    ></v-select>
     <v-btn
       color="success"
       class="mr-4"
@@ -67,10 +97,19 @@ import firebase from "@/config/firebase.js";
         sex: null,
         phone: undefined,
         bio: '',
+        school: '',
+        school2: '',
+        home: '',
+        status: '',
       },
       items: [
         'ชาย',
         'หญิง',
+        'ไม่ระบุ',
+      ],
+      itemsheart: [
+        'โสด',
+        'มีแฟนแล้ว',
         'ไม่ระบุ',
       ],
     }),
@@ -100,6 +139,10 @@ import firebase from "@/config/firebase.js";
       this.data.phone = userid.data().phone?userid.data().phone:""
       this.data.bio = userid.data().bio?userid.data().bio:""
       this.data.sex = userid.data().sex?userid.data().sex:""
+      this.data.school = userid.data().school?userid.data().school:""
+      this.data.school2 = userid.data().school2?userid.data().school2:""
+      this.data.home = userid.data().home?userid.data().home:""
+      this.data.status = userid.data().status?userid.data().status:""
     },
   }
   // console.log(firebase.firestore.collection('users').doc())
