@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto" max-width="680" width="100%">
+  <v-card class="mx-auto" max-width="680" width="100%" v-if="this.post.user.uid === id.uid">
     <div class="d-flex justify-start align-center px-4 py-3">
       <v-avatar class="mr-2" size="avatarSize">
         <img :src="post.user.avatar" alt="alt" width="40" />
@@ -131,6 +131,10 @@ export default {
       type: Object,
       reqired: true,
     },
+    id: {
+      type: Object,
+      reqired: true,
+    }
   },
   data() {
     return {
