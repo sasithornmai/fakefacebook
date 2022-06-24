@@ -46,7 +46,7 @@
     </v-img>
     <div class="d-flex justify-start align-center mx-3" style="height: 43px">
       <v-icon class="mr-1" size="x-small">mdi-thumb-up</v-icon>
-      <span style="font-size: 15px">{{ post.comments.length }}</span>
+      <span style="font-size: 15px">{{ post.likes.length }}</span>
     </div>
     <v-divider class="mx-3"></v-divider>
     <v-row no-gutters="">
@@ -56,6 +56,7 @@
           color="#65676B"
           block
           variant="text"
+          @click="like"
         >
           <v-icon>mdi-thumb-up-outline</v-icon>
           ถูกใจ
@@ -157,6 +158,19 @@ export default {
         firebase.firestore.collection('posts').doc(this.post.id).update({
         // comments:[{sender:this.$store.state.user.name, comment:this.data.comment}]
         comments: firebase.firebase.firestore.FieldValue.arrayUnion({sender:this.$store.state.user.name, comment:this.data.comment})
+      })
+      .then(e => {
+        console.log(e)
+      })
+      .catch(e => {
+        console.log('error : ' + e)
+      })
+    },
+    like() {
+      // alert('like')
+      firebase.firestore.collection('posts').doc(this.post.id).update({
+        // comments:[{sender:this.$store.state.user.name, comment:this.data.comment}]
+        likes: firebase.firebase.firestore.FieldValue.arrayUnion({user:this.$store.state.user.email})
       })
       .then(e => {
         console.log(e)

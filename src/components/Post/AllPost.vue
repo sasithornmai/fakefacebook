@@ -1,6 +1,6 @@
 <template>
   <div class="mt-4">
-    <SinglePost class="mt-2" v-for="(post, i) in posts" :key="i" :post="post" :id="post.user"/>
+    <SinglePost class="mt-2" v-for="(post, i) in posts" :key="i" :post="post" :id="post.user" :like="post.likes.length"/>
   </div>
 </template>
 
